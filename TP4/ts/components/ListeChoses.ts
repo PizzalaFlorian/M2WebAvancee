@@ -13,7 +13,8 @@ const htmlTemplate = `
 		<section class="main">
 			<input  class="toggle-all"
 			        type="checkbox"
-                    (ngModelChange)="toogleAll()"
+                    [ngModel] = "toutEstFait()"
+                    (ngModelChange)="toogleAllElmt()"
 			        />
 			<label for="toggle-all">Mark all as complete</label>
 			<ul class="todo-list">
@@ -83,7 +84,15 @@ export class ListeChoses implements OnInit {
     }
     setFilterComplete():void{
         this.filter = this.filterCompleted;
-
+    }
+    toogleAllElmt():void{
+        let val = !this.toutEstFait(); // on regarde si tout n'est pas fait
+        this.choses.forEach( c => {
+            c.Fait(val);
+        })
+    }
+    toutEstFait():boolean{
+        return this.choses.filter(this.filterCompleted).length === this.choses.length;
     }
 }
 
