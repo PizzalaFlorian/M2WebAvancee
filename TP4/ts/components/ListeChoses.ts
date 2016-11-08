@@ -36,7 +36,7 @@ const htmlTemplate = `
                     <a (click)="setFilterComplete()" [class.selected]="this.filter === this.filterCompleted">Complétés</a>
                 </li>
             </ul>
-            <button class="clear-completed">Supprimer cochées</button>
+            <button class="clear-completed" (click)="deleteSelect()">Supprimer cochées</button>
         </footer>
 	</section>
 	<hr/>
@@ -93,6 +93,11 @@ export class ListeChoses implements OnInit {
     }
     toutEstFait():boolean{
         return this.choses.filter(this.filterCompleted).length === this.choses.length;
+    }
+    deleteSelect():void{
+        this.choses.filter(this.filterCompleted).forEach( c =>{
+            c.dispose();
+        });
     }
 }
 
